@@ -31,12 +31,26 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.brands);
         Button button = findViewById(R.id.findBeer);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String beer = (String) spinner.getSelectedItem();
-                textView.setText(beer);
-            }
+        beers.put("Jasne", List.of("Jasne1", "Jasne2", "Jasne3"));
+        beers.put("Ciemne", List.of("Ciemne1", "Ciemne2", "Ciemne3"));
+        beers.put("Pszeniczne", List.of("Pszeniczne1", "Pszeniczne2", "Pszeniczne3"));
+        beers.put("Półciemne", List.of("Półciemne1", "Półciemne2", "Półciemne3"));
+        beers.put("Bezalkocholowe", List.of("Bezalkocholowe1", "Bezalkocholowe2", "Bezalkocholowe3"));
+
+        button.setOnClickListener(v -> {
+            String beer = (String) spinner.getSelectedItem();
+            String selectedBeers = beers.get(beer).toString();
+            selectedBeers = selectedBeers.substring(1, selectedBeers.length()-1);
+            textView.setText(String.format("Wybrane piwa: %s", selectedBeers));
+        });
+
+       // button.setOnClickListener(new View.OnClickListener() {
+       //     @Override
+       //     public void onClick(View v) {
+       //         String beer = (String) spinner.getSelectedItem();
+       //         textView.setText(beer);
+       //     }
+       // }
         });
     }
 }
