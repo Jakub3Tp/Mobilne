@@ -43,6 +43,52 @@ public class MainActivity extends AppCompatActivity {
 
 #Activity_Main
 
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:entries="@array/beer_color"
+        android:spinnerMode="dialog"/>
+
+    <Button
+        android:id="@+id/findBeer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:text="Znajdź Piwo"/>
+
+    <TextView
+        android:id="@+id/brands"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:text="Znalezione Piwa"/>
+</LinearLayout>
 
 #String.xml
+
+<resources>
+    <string name="app_name">DrinkApp</string>
+    <string-array name="beer_color">
+        <item>Jasne</item>
+        <item>Ciemne</item>
+        <item>Pszeniczne</item>
+        <item>Półciemne</item>
+        <item>Bezalkocholowe</item>
+    </string-array>
+</resources>
