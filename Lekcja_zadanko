@@ -1,0 +1,243 @@
+#Activity_main
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/add"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:ems="5"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" +"
+            android:ems="1">
+        </TextView>
+
+        <EditText
+            android:id="@+id/add2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ="
+            android:ems="1">
+        </TextView>
+
+        <EditText
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/take"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:ems="5"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" -"
+            android:ems="1">
+        </TextView>
+
+        <EditText
+            android:id="@+id/take2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ="
+            android:ems="1">
+        </TextView>
+
+        <EditText
+            android:id="@+id/progress2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/multiply"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:ems="5"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" *"
+            android:ems="1">
+        </TextView>
+
+        <EditText
+            android:id="@+id/multiply2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ="
+            android:ems="1">
+        </TextView>
+
+        <EditText
+            android:id="@+id/progress3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/devine"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:ems="5"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" /"
+            android:ems="1">
+        </TextView>
+
+        <EditText
+            android:id="@+id/devine2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ="
+            android:ems="1">
+        </TextView>
+
+        <EditText
+            android:id="@+id/progress4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/countButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Oblicz" />
+</LinearLayout>
+
+#Main_Activity
+
+package com.example.zadanko;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        EditText add = findViewById(R.id.add);
+        EditText add2 = findViewById(R.id.add2);
+
+        EditText take = findViewById(R.id.take);
+        EditText take2 = findViewById(R.id.take2);
+
+        EditText multiply = findViewById(R.id.multiply);
+        EditText multiply2 = findViewById(R.id.multiply2);
+
+        EditText devine = findViewById(R.id.devine);
+        EditText devine2 = findViewById(R.id.devine2);
+
+        EditText proggress = findViewById(R.id.progress);
+        EditText proggress2 = findViewById(R.id.progress2);
+        EditText proggress3 = findViewById(R.id.progress3);
+        EditText proggress4 = findViewById(R.id.progress4);
+
+        Button button = findViewById(R.id.countButton);
+        button.setOnClickListener(v ->  {
+                String adding = add.getText().toString();
+                String adding2 = add2.getText().toString();
+                Double score_plus = Double.parseDouble(adding) + Double.parseDouble(adding2);
+                proggress.setText(String.format("%s", score_plus));
+
+                String taking = take.getText().toString();
+                String taking2 = take2.getText().toString();
+                Double score_minus = Double.parseDouble(taking) - Double.parseDouble(taking2);
+                proggress2.setText(String.format("%s", score_minus));
+
+                String multipling = multiply.getText().toString();
+                String multipling2 = multiply2.getText().toString();
+                Double score_multi = Double.parseDouble(multipling) * Double.parseDouble(multipling2);
+                proggress3.setText(String.format("%s", score_multi));
+
+                String devining = devine.getText().toString();
+                String devining2 = devine2.getText().toString();
+                Double score_devine = Double.parseDouble(devining) / Double.parseDouble(devining2);
+                proggress4.setText(String.format("%s", score_devine));
+        });
+    }
+}
