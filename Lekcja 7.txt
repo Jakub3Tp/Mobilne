@@ -2,7 +2,9 @@
 
 package com.example.modyfikator;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -16,6 +18,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Button button;
+
+    private EditText font;
+
+    private String orginalText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,25 +35,57 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        EditText font = findViewById(R.id.font);
+        font = findViewById(R.id.font);
+        RadioButton radioBold = findViewById(R.id.bold);
+        RadioButton radioItalic = findViewById(R.id.italic);
+        orginalText = font.getText().toString();
+        button = findViewById(R.id.ok);
 
-        Button button = findViewById(R.id.ok);
-        button.setOnClickListener( v -> {
-            CheckBox checkBox = findViewById(R.id.checkBox);
-            if(checkBox.isChecked()){
-                String change = font.getText().toString().toUpperCase();
-                font.setText(change);
-            }
-            RadioButton radioBold = findViewById(R.id.bold);
-            RadioButton radioItalic = findViewById(R.id.italic);
-            
-            if(radioItalic){
-                font
+        CheckBox checkBox = findViewById(R.id.checkBox);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkBox.isChecked()){
+                    orginalText = font.getText().toString();
+                    font.setText(font.getText().toString().toUpperCase());
+                }else {
+                    font.setText(orginalText);
+                }
+
+                radioBold.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        font.setTypeface(font.getTypeface(), Typeface.BOLD);
+                    }
+                });
+
+                radioItalic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        font.setTypeface(font.getTypeface(), Typeface.ITALIC);
+                    }
+                });
             }
         });
+
+        /*button.setOnClickListener( v -> {
+            CheckBox checkBox = findViewById(R.id.checkBox);
+            if(checkBox.isChecked()){
+                orginalText = font.getText().toString();
+                font.getText().toString().toUpperCase();
+                font.setText(orginalText);
+            }else {
+                font.setText(orginalText);
+            }
+
+            if(radioItalic.isChecked()){
+                font.setTypeface(font.getTypeface(), Typeface.ITALIC);
+            } else if(radioBold.isChecked()){
+                font.setTypeface(font.getTypeface(), Typeface.BOLD);
+            }
+        });*/
     }
 }
-
 #Activity_main
 
 <?xml version="1.0" encoding="utf-8"?>
@@ -64,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
         android:text="Czcionki"
         android:textColor="@color/red"
         android:textSize="90px"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/font"
-        app:layout_constraintStart_toStartOf="@+id/font"
-        tools:layout_editor_absoluteY="42dp" />
+        app:layout_constraintStart_toStartOf="@+id/font" />
 
     <Button
         android:id="@+id/ok"
@@ -75,8 +115,10 @@ public class MainActivity extends AppCompatActivity {
         android:text="Ok"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.313" />
 
     <EditText
         android:id="@+id/font"
@@ -85,11 +127,12 @@ public class MainActivity extends AppCompatActivity {
         android:layout_marginTop="26dp"
         android:ems="10"
         android:inputType="text"
-        android:text=""
         app:layout_constraintBottom_toTopOf="@+id/ok"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.013" />
 
     <TextView
         android:id="@+id/textView2"
@@ -99,6 +142,39 @@ public class MainActivity extends AppCompatActivity {
         android:textSize="90px"
         app:layout_constraintBottom_toBottomOf="@+id/font"
         app:layout_constraintEnd_toStartOf="@+id/font"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/font" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wielkie Litery"
+        app:layout_constraintBottom_toTopOf="@+id/ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/font" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox">
+
+        <RadioButton
+            android:id="@+id/bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pogrubienie" />
+
+        <RadioButton
+            android:id="@+id/italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pogrubienie" />
+    </RadioGroup>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
