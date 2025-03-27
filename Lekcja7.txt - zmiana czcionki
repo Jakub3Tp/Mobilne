@@ -68,6 +68,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        SeekBar seekBar = findViewById(R.id.seekBar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                TextView seekValue = findViewById(R.id.seekValue);
+                seekValue.setText(String.valueOf(seekBar.getProgress()));
+                font.setTextSize(TypedValue.COMPLEX_UNIT_PX, seekBar.getProgress());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        seekBar.setProgress((int) font.getTextSize());
+
         /*button.setOnClickListener( v -> {
             CheckBox checkBox = findViewById(R.id.checkBox);
             if(checkBox.isChecked()){
