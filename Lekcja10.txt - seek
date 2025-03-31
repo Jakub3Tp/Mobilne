@@ -16,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+    //private int seekR, seekG, seekB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +39,12 @@ public class MainActivity extends AppCompatActivity {
 
         EditText color = findViewById(R.id.color);
 
-        private void colorset {
-            int color = colorse
-        }
         seekRed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 editRed.setText(String.valueOf(seekBar.getProgress()));
+                //seekR = progress;
+                color.setBackgroundColor(Color.rgb(seekRed.getProgress(), seekGreen.getProgress(), seekBlue.getProgress()));
             }
 
             @Override
@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 editGreen.setText(String.valueOf(seekBar.getProgress()));
+                //seekG = progress;
+                color.setBackgroundColor(Color.rgb(seekRed.getProgress(), seekGreen.getProgress(), seekBlue.getProgress()));
             }
 
             @Override
@@ -79,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 editBlue.setText(String.valueOf(seekBar.getProgress()));
-
+                //seekB = progress;
+                color.setBackgroundColor(Color.rgb(seekRed.getProgress(), seekGreen.getProgress(), seekBlue.getProgress()));
             }
 
             @Override
@@ -93,16 +96,73 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-        editRed.setOnKeyListener(new View.OnKeyListener() {
+        editRed.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                seekRed.setProgress(editRed.getText());
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try{
+                    seekRed.setProgress(Integer.parseInt(s.toString()));
+                }catch (NumberFormatException exception){
+                    editRed.setText('0');
+                }
+            }
+        });
+
+        editGreen.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    seekGreen.setProgress(Integer.parseInt(s.toString()));
+                }catch (NumberFormatException exception){
+                    editGreen.setText('0');
+                }
+            }
+        });
+
+        editBlue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    seekBlue.setProgress(Integer.parseInt(s.toString()));
+                }catch (NumberFormatException exception){
+                    editBlue.setText('0');
+                }
             }
         });
     }
+    //private int colorSet() {
+    //    int newColor = Color.rgb(seekR, seekG, seekB);
+    //    return newColor;
+    //}
 }
 
 <?xml version="1.0" encoding="utf-8"?>
