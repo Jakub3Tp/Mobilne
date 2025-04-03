@@ -38,35 +38,32 @@ public class MainActivity extends AppCompatActivity {
         code.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int shift = Integer.parseInt(editKey.getText().toString());
+                int shift_by = Integer.parseInt(editKey.getText().toString());
                 Editable code = editCipher.getText();
-                String s = "";
+                StringBuilder s = new StringBuilder();
                 int len = code.length();
                 for (int x = 0; x < len; x++) {
-                    char c = (char) (code.charAt(x) + shift);
-                    if (c > 'z' || ( c > 'Z' && c < 'd')) {
-                        c-=26;
-                    }
-                    s+=c;
+                    char c = (char) (code.charAt(x) + shift_by);
+                    s.append(c);
                 }
-                yourCipher.setText(s);
+                yourCipher.setText(s.toString());
             }
         });
 
         decode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int shift = Integer.parseInt(editKey.getText().toString());
+                int shift_by = Integer.parseInt(editKey.getText().toString());
                 Editable code = editCipher.getText();
-                String s = "";
+                StringBuilder s = new StringBuilder();
                 int len = code.length();
                 for (int x = 0; x < len; x++) {
-                    char c = (char) (code.charAt(x) - shift);
-                    if (c < 'A' || (c < 'a' && c > 'W'))
+                    char c = (char) (code.charAt(x) - shift_by);
+                    if (c < 'a' && c > 'Z')
                         c += 26;
-                    s += c;
+                    s.append(c);
                 }
-                yourCipher.setText(s);
+                yourCipher.setText(s.toString());
             }
         });
     }
