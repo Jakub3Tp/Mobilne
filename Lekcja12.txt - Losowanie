@@ -2,6 +2,7 @@
 package com.example.zadanko3;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,6 +21,10 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String[] levels = new String[]{"Łatwy", "Średni", "Trudny"};
+
+    private int selectedLevel = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,23 +38,75 @@ public class MainActivity extends AppCompatActivity {
         });
 
             EditText number = findViewById(R.id.number);
-            TextView guess = findViewById(R.id.guess);
+            //TextView guess = findViewById(R.id.guess);
             ImageView imageView = findViewById(R.id.imageView);
 
             Button button = findViewById(R.id.button);
+            Random random = new Random();
+            int rand = random.nextInt(10);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Random random = new Random();
-                    int rand = random.nextInt(10);
                     int intedNumber = Integer.parseInt(number.getText().toString());
 
                     if(intedNumber > rand){
-                        Toast.makeText(MainActivity.this, "Za durzo", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Za durzo", Toast.LENGTH_SHORT).show();
                     } else if (intedNumber < rand) {
+                        Toast.makeText(MainActivity.this, "Za mało", Toast.LENGTH_SHORT).show();
+                    }else {
+                        imageView.setImageResource(R.mipmap.cat);
+                    }
+                }
+            });
+            Button buttonCoice = findViewById(R.id.buttonChoice);
+            buttonCoice.setOnClickListener((View v) -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Wybierz poziom trudności");
+                final int[] selected = {0};
+                builder.setSingleChoiceItems(levels, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selected[0] = which;
+                        Toast.makeText(MainActivity.this, levels[selectedLevel], Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setCancelable(false);
+                builder.setPositiveButton("Okej", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedLevel = selected[0];
+                    }
+                });
+
+                builder.setNeutralButton("Anuluj", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
+
+                if(selectedLevel == 2) {
+                    int randm = random.nextInt(30);
+                    int intedNumber = Integer.parseInt(number.getText().toString());
+
+                    if(intedNumber > randm){
+                        Toast.makeText(MainActivity.this, "Za durzo", Toast.LENGTH_LONG).show();
+                    } else if (intedNumber < randm) {
                         Toast.makeText(MainActivity.this, "Za mało", Toast.LENGTH_LONG).show();
                     }else {
+                        imageView.setImageResource(R.mipmap.cat);
+                    }
 
+                }else if(selectedLevel == 3) {
+                    int randh = random.nextInt(90);
+                    int intedNumber = Integer.parseInt(number.getText().toString());
+
+                    if(intedNumber > randh){
+                        Toast.makeText(MainActivity.this, "Za durzo", Toast.LENGTH_LONG).show();
+                    } else if (intedNumber < randh) {
+                        Toast.makeText(MainActivity.this, "Za mało", Toast.LENGTH_LONG).show();
+                    }else {
                         imageView.setImageResource(R.mipmap.cat);
                     }
                 }
