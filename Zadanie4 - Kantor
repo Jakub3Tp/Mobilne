@@ -26,18 +26,255 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="152dp"
+            android:layout_height="wrap_content"
             android:layout_weight="3"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
-        
-        <TextView
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center"/>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:text="Mam: "
-            android:textSize="30dp"
-            />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mam: "
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/have"
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+        </LinearLayout>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/euro1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Euro"
+                android:textSize="20dp"/>
+            <RadioButton
+                android:id="@+id/dolar1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dolar"
+                android:textSize="20dp"/>
+            <RadioButton
+                android:id="@+id/zloty1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Złotówka"
+                android:textSize="20dp"/>
+            <RadioButton
+                android:id="@+id/frank1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Frank"
+                android:textSize="20dp"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chce: "
+                android:textSize="30dp"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/result"
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:layout_marginTop="20dp"/>
+        </LinearLayout>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/euro2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Euro"
+                android:textSize="20dp"/>
+            <RadioButton
+                android:id="@+id/dolar2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dolar"
+                android:textSize="20dp"/>
+            <RadioButton
+                android:id="@+id/zloty2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Złotówka"
+                android:textSize="20dp"/>
+            <RadioButton
+                android:id="@+id/frank2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Frank"
+                android:textSize="20dp"/>
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/check"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Przelicz"/>
+
     </LinearLayout>
 </LinearLayout>
 
 #MainActivity
 
+package com.example.kantor;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        EditText have = findViewById(R.id.have);
+
+        Button check = findViewById(R.id.check);
+
+        RadioButton euro1 = findViewById(R.id.euro1);
+        RadioButton euro2 = findViewById(R.id.euro2);
+        RadioButton dolar1 = findViewById(R.id.dolar1);
+        RadioButton dolar2 = findViewById(R.id.dolar2);
+        RadioButton zloty1 = findViewById(R.id.zloty1);
+        RadioButton zloty2 = findViewById(R.id.zloty2);
+        RadioButton frank1 = findViewById(R.id.frank1);
+        RadioButton frank2 = findViewById(R.id.frank2);
+
+        TextView resultV = findViewById(R.id.result);
+
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (euro1.isChecked() && euro2.isChecked()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Błąd!");
+                    builder.setMessage("Nie można przeliczyć przez ten sam kurs");
+                    builder.show();
+                }
+
+                if (dolar1.isChecked() && dolar2.isChecked()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Błąd!");
+                    builder.setMessage("Nie można przeliczyć przez ten sam kurs");
+                    builder.show();
+                }
+
+                if (zloty1.isChecked() && zloty2.isChecked()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Błąd!");
+                    builder.setMessage("Nie można przeliczyć przez ten sam kurs");
+                    builder.show();
+                }
+
+                if (frank1.isChecked() && frank2.isChecked()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Błąd!");
+                    builder.setMessage("Nie można przeliczyć przez ten sam kurs");
+                    builder.show();
+                }
+
+                if (have.length() == 0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Błąd!");
+                    builder.setMessage("Wypełnij pole");
+                    builder.show();
+                } else {
+                    double amount;
+                    try {
+                        amount = Double.parseDouble(have.getText().toString());
+                    } catch (NumberFormatException e) {
+                        amount = 0;
+                    }
+
+                    double result = 0;
+                    if (euro1.isChecked()){
+                        if (euro2.isChecked()) {
+                            result = amount;
+                        }else if (dolar2.isChecked()) {
+                            result = amount * 1.2;
+                        }else if (zloty2.isChecked()) {
+                            result = amount * 4.3;
+                        }else if (frank2.isChecked()) {
+                            result = amount * 0.9;
+                        }
+                    }
+
+                    if (dolar1.isChecked()){
+                        if (euro2.isChecked()) {
+                            result = amount / 1.2;
+                        }else if (dolar2.isChecked()) {
+                            result = amount;
+                        }else if (zloty2.isChecked()) {
+                            result = (amount / 1.2) * 4.3;
+                        }else if (frank2.isChecked()) {
+                            result = (amount / 1.2) * 0.9;
+                        }
+                    }
+
+                    if (zloty1.isChecked()){
+                        if (euro2.isChecked()) {
+                            result = amount / 4.3;
+                        }else if (dolar2.isChecked()) {
+                            result = (amount / 4.3) * 1.2;
+                        }else if (zloty2.isChecked()) {
+                            result = amount;
+                        }else if (frank2.isChecked()) {
+                            result = (amount / 4.3) * 0.9;
+                        }
+                    }
+
+                    if (frank1.isChecked()){
+                        if (euro2.isChecked()) {
+                            result = amount / 0.9;
+                        }else if (dolar2.isChecked()) {
+                            result = (amount / 0.9) * 1.2;
+                        }else if (zloty2.isChecked()) {
+                            result = (amount / 0.9) * 4.3;
+                        }else if (frank2.isChecked()) {
+                            result = amount;
+                        }
+                    }
+
+                    resultV.setText(String.format("%.2f", result));
+                }
+            }
+        });
+    }
+}
